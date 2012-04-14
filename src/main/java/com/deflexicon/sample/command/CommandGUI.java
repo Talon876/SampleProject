@@ -1,15 +1,18 @@
 package com.deflexicon.sample.command;
 
 import java.awt.*;
+import java.awt.event.*;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
-public class CommandGUI extends JFrame
+/**
+ * Uses a lazy initialized Singleton of CommandGUI to issue command events to
+ * all listeners Takes in commands through a TextField.
+ */
+public class CommandGUI extends JFrame implements CommandListener
 {
-	/**
-	 * Uses a lazy initialized Singleton of CommandGUI to issue command events
-	 * to all listeners Takes in commands through a TextField.
-	 */
+
 	private static final long serialVersionUID = 207386308260902684L;
 	private static CommandGUI _instance = null;
 
@@ -18,6 +21,8 @@ public class CommandGUI extends JFrame
 	private JTextField input;
 	private JPanel inputPanel;
 
+	private ArrayList<CommandListener> listeners;
+	
 	public static synchronized CommandGUI getInstance()
 	{
 		if (_instance == null)
@@ -29,36 +34,35 @@ public class CommandGUI extends JFrame
 
 	private CommandGUI()
 	{
-		this.setVisible(true);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		listeners = new ArrayList<CommandListener>();
+		
+		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.setPreferredSize(new Dimension(640, 320));
 		this.setLocation(0, 0);
 		this.setTitle("Command Line");
 
 		initGui();
 		this.pack();
-		this.write("This is the command line\nType help for a list of commands");
+		this.write("This is the command line\nType 'help' for a list of commands");
+		input.requestFocusInWindow();
+		
 	}
 
 	private void initGui()
 	{
 		output = new JTextArea("");
-			output.setEditable(false);
-			output.setBackground(Color.BLACK);
-			output.setForeground(Color.GREEN);
-			
+		output.setEditable(false);
+		output.setBackground(Color.BLACK);
+		output.setForeground(Color.GREEN);
+
 		JScrollPane scrollOutput = new JScrollPane(output);
-		
-		input = new JTextField("");
-			input.setBackground(Color.BLACK);
-			input.setForeground(Color.GREEN);
-		inputPanel = new JPanel(new GridLayout(1, 2));
+
+		input = new CommandTextField();
 
 		this.setLayout(new BorderLayout());
 
-		inputPanel.add(input);
 		this.add(scrollOutput, BorderLayout.CENTER);
-		this.add(inputPanel, BorderLayout.SOUTH);
+		this.add(input, BorderLayout.SOUTH);
 	}
 
 	/**
@@ -74,18 +78,72 @@ public class CommandGUI extends JFrame
 		else
 			this.setVisible(true);
 	}
+
 	/**
 	 * Adds a line to the output pane of the CommandGUI
+	 * 
 	 * @author Talon Daniels
-	 * @param text The text to output to the screen
+	 * @param text
+	 *            The text to output to the screen
 	 */
 	private void write(String text)
 	{
-		if(!output.getText().equals(""))
+		if (!output.getText().equals(""))
 			output.setText(output.getText() + "\n" + text);
 		else
 			output.setText(text);
-			
+
 	}
-	//TODO: Add Echo of command with input
+
+	/**
+	 * Adds a line to the output pane that has a \n> prepended
+	 * 
+	 * @author Steve Dighans
+	 * @param text
+	 *            The text to output to the screen
+	 * @param prepend
+	 *            Whether or not to prepend \n> onto the text given
+	 */
+	private void write(String text, boolean prepend)
+	{
+		if (prepend)
+			text = "\n> " + text;
+		if (!output.getText().equals(""))
+			output.setText(output.getText() + "\n" + text);
+		else
+			output.setText(text);
+
+	}
+	
+	/**
+	 * Adds the listener from the GUI
+	 * @param listener
+	 */
+	public void addCommandListener(CommandListener listener)
+	{
+		listeners.add(listener);
+	}
+	
+	/**
+	 * Removes the listener from the GUI
+	 * @param listener
+	 */
+	public void removeCommandListener(CommandListener listener)
+	{
+		listeners.remove(listener);
+	}
+
+	/**
+	 * Updates the registered CommandListeners when a new event is fired
+	 * @param command The command sent out to the CommandListeners
+	 */
+	@Override
+	public void commandRecieved(Command command)
+	{
+		for(CommandListener listener: listeners)
+		{
+			listener.commandRecieved(command);
+		}
+		
+	}
 }
