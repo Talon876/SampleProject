@@ -6,6 +6,7 @@ package com.deflexicon.sample.command;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 
 import javax.swing.JTextField;
 
@@ -13,19 +14,29 @@ import javax.swing.JTextField;
  * @author Steve Dighans
  *
  */
-public class CommandTextField extends JTextField implements KeyListener
+public class CommandTextField extends JTextField implements KeyListener, CommandListener
 {
-	public CommandTextField()
+	private static final long serialVersionUID = -475144318279111232L;
+
+	private OutputWriter parent;
+	private ArrayList<CommandListener> listeners;
+	
+	public CommandTextField(OutputWriter parentComponent)
 	{
 		super();
+		listeners = new ArrayList<CommandListener>();
+		parent = parentComponent;
 		this.setBackground(Color.BLACK);
 		this.setForeground(Color.GREEN);
+		this.setCaretColor(Color.GREEN);
+		this.addKeyListener(this);
 	}
-	public CommandTextField(Color background, Color foreground)
+	public CommandTextField(OutputWriter parentComponent, Color background, Color foreground)
 	{
-		this();
+		this(parentComponent);
 		this.setBackground(background);
 		this.setForeground(foreground);
+		this.setCaretColor(foreground);
 	}
 	/* (non-Javadoc)
 	 * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
@@ -33,12 +44,14 @@ public class CommandTextField extends JTextField implements KeyListener
 	@Override
 	public void keyPressed(KeyEvent ke)
 	{
+		//TODO: Escape hide window
 		int kc = ke.getKeyCode();
-		JTextField field;
 		
 		if(kc == ke.VK_ENTER)
 		{
 			//Enter
+			parent.write(this.getText(),true);
+			this.setText("");
 		}
 		else if (kc == ke.VK_DOWN)
 		{
@@ -69,5 +82,36 @@ public class CommandTextField extends JTextField implements KeyListener
 	{
 		// TODO Auto-generated method stub
 
+	}
+	
+	/**
+	 * Adds the listener from the GUI
+	 * @param listener
+	 */
+	public void addCommandListener(CommandListener listener)
+	{
+		listeners.add(listener);
+	}
+	
+	/**
+	 * Removes the listener from the GUI
+	 * @param listener
+	 */
+	public void removeCommandListener(CommandListener listener)
+	{
+		listeners.remove(listener);
+	}
+	
+	/**
+	 * Sends the command out from the parser to the listeners
+	 * @param command The command to send out to the listeners
+	 */
+	@Override
+	public void commandReceived(Command command)
+	{
+		for(CommandListener listener: listeners)
+		{
+			listener.commandReceived(command);
+		}
 	}
 }

@@ -1,7 +1,6 @@
 package com.deflexicon.sample.command;
 
 import java.awt.*;
-import java.awt.event.*;
 import java.util.ArrayList;
 
 import javax.swing.*;
@@ -10,7 +9,7 @@ import javax.swing.*;
  * Uses a lazy initialized Singleton of CommandGUI to issue command events to
  * all listeners Takes in commands through a TextField.
  */
-public class CommandGUI extends JFrame implements CommandListener
+public class CommandGUI extends JFrame implements CommandListener, OutputWriter
 {
 
 	private static final long serialVersionUID = 207386308260902684L;
@@ -18,8 +17,7 @@ public class CommandGUI extends JFrame implements CommandListener
 
 	private JTextArea output;
 
-	private JTextField input;
-	private JPanel inputPanel;
+	private CommandTextField input;
 
 	private ArrayList<CommandListener> listeners;
 	
@@ -57,8 +55,9 @@ public class CommandGUI extends JFrame implements CommandListener
 
 		JScrollPane scrollOutput = new JScrollPane(output);
 
-		input = new CommandTextField();
-
+		input = new CommandTextField(this);
+			input.addCommandListener(this);
+			
 		this.setLayout(new BorderLayout());
 
 		this.add(scrollOutput, BorderLayout.CENTER);
@@ -86,7 +85,7 @@ public class CommandGUI extends JFrame implements CommandListener
 	 * @param text
 	 *            The text to output to the screen
 	 */
-	private void write(String text)
+	public void write(String text)
 	{
 		if (!output.getText().equals(""))
 			output.setText(output.getText() + "\n" + text);
@@ -104,7 +103,7 @@ public class CommandGUI extends JFrame implements CommandListener
 	 * @param prepend
 	 *            Whether or not to prepend \n> onto the text given
 	 */
-	private void write(String text, boolean prepend)
+	public void write(String text, boolean prepend)
 	{
 		if (prepend)
 			text = "\n> " + text;
