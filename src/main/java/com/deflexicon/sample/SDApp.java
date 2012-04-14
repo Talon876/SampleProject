@@ -10,6 +10,7 @@ public class SDApp
 	{
 		System.out.println("SD " + new Date().toString());
 		System.out.println(Arrays.toString(ex6Part1(1337,9001,42)));
+		System.out.println(Arrays.toString(ex6Part2(1337,9001,42)));
 	}
 
 	public int[] ex6Part1(int first, int second, int third)
