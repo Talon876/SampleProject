@@ -138,11 +138,11 @@ public class CommandGUI extends JFrame implements CommandListener
 	 * @param command The command sent out to the CommandListeners
 	 */
 	@Override
-	public void commandRecieved(Command command)
+	public void commandReceived(Command command)
 	{
 		for(CommandListener listener: listeners)
 		{
-			listener.commandRecieved(command);
+			listener.commandReceived(command);
 		}
 		
 	}
