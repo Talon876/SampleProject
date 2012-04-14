@@ -1,0 +1,6 @@
+I was working on some of the command stuff.
+I was thinking that any command that outputs stuff (help, list, etc) should implement a DataCommand interface which forces a string getResults() method.
+Then when the command is executed you can check if its a data command and if it is, print out the results given by the getResults method.
+If it's not a DataCommand, then it won't print anything out but will still be sent to my EffectManager where I can parse its arguments and do what is needed (this will happen to DataCommands too, it will also just be outputting text).
+
+I moved the COMMANDS enum to public level in the commands package so that the HelpCommand can have access to them all.
