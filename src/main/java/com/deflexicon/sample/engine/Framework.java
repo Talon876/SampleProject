@@ -313,11 +313,14 @@ public class Framework extends Canvas
 				restartGame();
 			break;
 		case PLAYING:
+			game.keyReleased(e);
 		case MAIN_MENU:
 			if (e.getKeyCode() == KeyEvent.VK_ESCAPE)
 				System.exit(0);
 		}
 	}
+	
+	
 
 	/**
 	 * This method is called when mouse button is clicked.
@@ -337,4 +340,6 @@ public class Framework extends Canvas
 			}
 		}
 	}
+
+	
 }

@@ -79,6 +79,7 @@ public abstract class Canvas extends JPanel implements KeyListener, MouseListene
 	{
 		return keyboardState[key];
 	}
+	
 
 	// Methods of the keyboard listener.
 	@Override
@@ -97,8 +98,10 @@ public abstract class Canvas extends JPanel implements KeyListener, MouseListene
 	@Override
 	public void keyTyped(KeyEvent e)
 	{
+		
 	}
-
+	
+	
 	public abstract void keyReleasedFramework(KeyEvent e);
 
 	// Mouse
