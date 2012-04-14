@@ -7,6 +7,7 @@ import java.awt.event.KeyEvent;
 
 import com.deflexicon.sample.command.CommandGUI;
 import com.deflexicon.sample.engine.Framework;
+import com.deflexicon.sample.visual.effects.BGEffect;
 import com.deflexicon.sample.visual.effects.EffectManager;
 
 public class BaseGame
@@ -39,7 +40,6 @@ public class BaseGame
 	{
 		System.out.println("game init");
 		effectManager = new EffectManager();
-		
 	}
 
 	private void loadContent()
