@@ -7,7 +7,7 @@ import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
-import com.deflexicon.sample.BaseGame;
+import com.deflexicon.sample.visual.BaseGame;
 
 /**
  * Framework that controls the game (Game.java) that created it, update it and
