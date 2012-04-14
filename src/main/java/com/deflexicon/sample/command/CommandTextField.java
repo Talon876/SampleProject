@@ -50,8 +50,17 @@ public class CommandTextField extends JTextField implements KeyListener, Command
 		if(kc == ke.VK_ENTER)
 		{
 			//Enter
-			parent.write(this.getText(),true);
+			String command = this.getText();
+			parent.write(command,true);
 			this.setText("");
+			try
+			{
+				CommandParser.parseString(command);
+			}
+			catch(CommandParseException e)
+			{
+				parent.writeError("Command not found");
+			}
 		}
 		else if (kc == ke.VK_DOWN)
 		{
@@ -68,24 +77,16 @@ public class CommandTextField extends JTextField implements KeyListener, Command
 	 * @see java.awt.event.KeyListener#keyReleased(java.awt.event.KeyEvent)
 	 */
 	@Override
-	public void keyReleased(KeyEvent e)
-	{
-		// TODO Auto-generated method stub
-
-	}
+	public void keyReleased(KeyEvent e){}
 
 	/* (non-Javadoc)
 	 * @see java.awt.event.KeyListener#keyTyped(java.awt.event.KeyEvent)
 	 */
 	@Override
-	public void keyTyped(KeyEvent e)
-	{
-		// TODO Auto-generated method stub
-
-	}
+	public void keyTyped(KeyEvent e){}
 	
 	/**
-	 * Adds the listener from the GUI
+	 * Adds the listener from the TextField
 	 * @param listener
 	 */
 	public void addCommandListener(CommandListener listener)
@@ -94,7 +95,7 @@ public class CommandTextField extends JTextField implements KeyListener, Command
 	}
 	
 	/**
-	 * Removes the listener from the GUI
+	 * Removes the listener from the TextField
 	 * @param listener
 	 */
 	public void removeCommandListener(CommandListener listener)

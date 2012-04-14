@@ -4,6 +4,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 import javax.swing.*;
+import javax.swing.text.*;
 
 /**
  * Uses a lazy initialized Singleton of CommandGUI to issue command events to
@@ -15,11 +16,13 @@ public class CommandGUI extends JFrame implements CommandListener, OutputWriter
 	private static final long serialVersionUID = 207386308260902684L;
 	private static CommandGUI _instance = null;
 
-	private JTextArea output;
+	private JTextPane output;
 
 	private CommandTextField input;
 
 	private ArrayList<CommandListener> listeners;
+	
+	private Color errorColor;
 	
 	public static synchronized CommandGUI getInstance()
 	{
@@ -32,6 +35,7 @@ public class CommandGUI extends JFrame implements CommandListener, OutputWriter
 
 	private CommandGUI()
 	{
+		errorColor = Color.RED;
 		listeners = new ArrayList<CommandListener>();
 		
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -48,7 +52,7 @@ public class CommandGUI extends JFrame implements CommandListener, OutputWriter
 
 	private void initGui()
 	{
-		output = new JTextArea("");
+		output = new JTextPane();
 		output.setEditable(false);
 		output.setBackground(Color.BLACK);
 		output.setForeground(Color.GREEN);
@@ -87,13 +91,36 @@ public class CommandGUI extends JFrame implements CommandListener, OutputWriter
 	 */
 	public void write(String text)
 	{
-		if (!output.getText().equals(""))
-			output.setText(output.getText() + "\n" + text);
-		else
-			output.setText(text);
+		StyleContext sc = StyleContext.getDefaultStyleContext();
+	    AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY,
+	    StyleConstants.Foreground, output.getForeground());
+
+	    int len = output.getDocument().getLength();
+	    try {
+			output.getDocument().insertString(len, text + "\n", aset);
+		} catch (BadLocationException e) {
+			e.printStackTrace();
+		}
 
 	}
-
+	
+	/**
+	 * Adds a line to the output pane of the CommandGUI with a specific Color
+	 * 
+	 * @author Steve Dighans
+	 * @param text
+	 *            The text to output to the screen
+	 * @param clr
+	 * 				Color of the text.
+	 */
+	public void write(String text, Color clr)
+	{
+		Color curForeground = output.getForeground();
+		output.setForeground(clr);
+		this.write(text);
+		output.setForeground(curForeground);
+	}
+	
 	/**
 	 * Adds a line to the output pane that has a \n> prepended
 	 * 
@@ -105,13 +132,21 @@ public class CommandGUI extends JFrame implements CommandListener, OutputWriter
 	 */
 	public void write(String text, boolean prepend)
 	{
-		if (prepend)
+	    if (prepend)
 			text = "\n> " + text;
-		if (!output.getText().equals(""))
-			output.setText(output.getText() + "\n" + text);
-		else
-			output.setText(text);
-
+	    this.write(text);
+	}
+	
+	/**
+	 * Adds the error line to the output pane
+	 * 
+	 * @author Steve Dighans
+	 * @param text
+	 *            The error to output to the screen
+	 */
+	public void writeError(String error)
+	{
+		this.write(error, errorColor);
 	}
 	
 	/**
