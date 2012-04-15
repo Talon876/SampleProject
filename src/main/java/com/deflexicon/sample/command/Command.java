@@ -13,38 +13,32 @@ import java.util.ArrayList;
  */
 public abstract class Command
 {
-	private String name = "";
 	private String stringArg = "";
 	ArrayList<Integer> intArgs = new ArrayList<Integer>();
 
 	/**
 	 * Creates a Command object
-	 * @param name The command name; must be a valid command or nothing will happen when it is executed.
 	 */
-	public Command(String name)
+	public Command()
 	{
-		this.name = name;
+		
 	}
 
 	/**
 	 * Creates a Command object
-	 * @param name The command name; must be a valid command or nothing will happen when it is executed.
 	 * @param arg An optional single string argument
 	 */
-	public Command(String name, String arg)
+	public Command(String arg)
 	{
-		this.name = name;
 		this.stringArg = arg;
 	}
 
 	/**
 	 * Creates a Command object
-	 * @param name The command name; must be a valid command or nothing will happen when it is executed.
 	 * @param intArgs An optional list of integer arguments (just keep adding ints as constructor arguments)
 	 */
-	public Command(String name, int... intArgs)
+	public Command(int... intArgs)
 	{
-		this.name = name;
 		for(int i = 0; i < intArgs.length; i++)
 		{
 			this.intArgs.add(intArgs[i]);
@@ -53,27 +47,16 @@ public abstract class Command
 
 	/**
 	 * Creates a Command object
-	 * @param name The command name; must be a valid command or nothing will happen when it is executed.
 	 * @param arg An optional single string argument
 	 * @param intArgs An optional list of integer arguments (just keep adding ints as constructor arguments)
 	 */
-	public Command(String name, String arg, int... intArgs)
+	public Command(String arg, int... intArgs)
 	{
-		this.name = name;
 		this.stringArg = arg;
 		for(int i = 0; i < intArgs.length; i++)
 		{
 			this.intArgs.add(intArgs[i]);
 		}
-	}
-
-	/**
-	 * Gets the name of the command.
-	 * @return The command name
-	 */
-	public String getName()
-	{
-		return name;
 	}
 
 	/**
@@ -93,4 +76,10 @@ public abstract class Command
 	{
 		return intArgs;
 	}
+
+	/**
+	 * Gets the help text for this command
+	 * @return
+	 */
+	public abstract String getHelpText();
 }
