@@ -51,10 +51,31 @@ public class HelpCommand extends Command implements DataCommand
 	
 	private String getAvailCommands()
 	{
-		String out = "Available Commands:\n";
+		String out = helpText + "\nAvailable Commands:\n";
+		Command cmdObject = null;
+		
 		for(COMMANDS cmd : COMMANDS.values())
 		{
-			out += cmd.toString().toLowerCase() + "\n";
+			if(cmd != COMMANDS.HELP)
+			{
+				try
+				{
+					cmdObject = CommandParser.parseString(cmd.toString());
+				}
+				catch (CommandParseException e)
+				{
+					e.printStackTrace(); //shouldn't happen
+				}
+				
+				if(cmdObject != null)
+				{
+					out += cmd.toString().toLowerCase() + " - " + cmdObject.getHelpText() + "\n";
+				}
+				else
+				{
+					out += cmd.toString().toLowerCase() + " - not yet implemented.\n";
+				}
+			}
 		}
 		return out;
 	}

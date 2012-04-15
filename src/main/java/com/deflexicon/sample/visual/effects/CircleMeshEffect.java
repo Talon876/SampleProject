@@ -1,6 +1,7 @@
 package com.deflexicon.sample.visual.effects;
 
 import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
@@ -71,7 +72,7 @@ public class CircleMeshEffect implements Effect
 	public void draw(Graphics2D g2d, Point mousePosition)
 	{
 		g2d.setStroke(new BasicStroke(2));
-		// g2d.setColor(Color.black);
+		g2d.setColor(Color.white);
 		for (Circle circle : circles)
 		{
 			circle.draw(g2d);

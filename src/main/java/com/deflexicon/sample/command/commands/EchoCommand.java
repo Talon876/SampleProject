@@ -11,6 +11,10 @@ import com.deflexicon.sample.command.Command;
  */
 public class EchoCommand extends Command implements DataCommand
 {
+	public EchoCommand()
+	{
+		super("Echo is ON");
+	}
 	/**
 	 * Creates a Command object
 	 * @param arg An optional single string argument

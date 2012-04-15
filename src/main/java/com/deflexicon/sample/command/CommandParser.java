@@ -6,6 +6,7 @@ package com.deflexicon.sample.command;
 import java.util.ArrayList;
 
 import com.deflexicon.sample.command.commands.BGCommand;
+import com.deflexicon.sample.command.commands.CMCommand;
 import com.deflexicon.sample.command.commands.EchoCommand;
 import com.deflexicon.sample.command.commands.HelpCommand;
 
@@ -60,10 +61,40 @@ public class CommandParser {
 				if(!input.equals(splitInput[0]))
 					cmd = new EchoCommand(input.substring(splitInput[0].length() + 1)); //incase they type echo without any arguments
 				else
-					throw new CommandParseException("ECHO is ON");
+					cmd = new EchoCommand();
+				break;
+			case CM:
+				cmd = parseCMCommand(splitInput);
 				break;
 		}
 		return cmd;
+	}
+	
+	private static Command parseCMCommand(String[] splitInput) throws CommandParseException
+	{
+		ArrayList<Integer> args = new ArrayList<Integer>();
+		if(splitInput.length > 1)
+		{
+			try
+			{
+				int arg = Integer.parseInt(splitInput[1]);
+				if (arg < 0 || arg > 750)
+				{
+					throw new CommandParseException("Invalid argument. Arguments must be an integer between 0 and 750");
+				}
+				args.add(arg);
+			}
+			catch(Exception ex)
+			{
+				throw new CommandParseException("Invalid argument. Arguments must be an integer between 0 and 750");
+			}
+		}
+		else
+		{
+			return new CMCommand();
+		}
+		
+		return new CMCommand(args.get(0));
 	}
 
 	private static Command parseBGCommand(String[] splitInput) throws CommandParseException
@@ -93,7 +124,7 @@ public class CommandParser {
 		}
 		else
 		{
-			return new BGCommand(0,0,0); //default to black
+			return new BGCommand(); //default
 		}
 		
 		switch(args.size())
@@ -105,7 +136,7 @@ public class CommandParser {
 			case 3:
 				return new BGCommand(args.get(0), args.get(1), args.get(2));
 			default:
-				return new BGCommand(0,0,0);
+				return new BGCommand();
 		}
 	}
 }

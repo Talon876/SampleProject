@@ -28,9 +28,9 @@ public class EffectManager implements CommandListener
 
 	public void draw(Graphics2D g2d, Point mousePosition)
 	{
-		for (Effect effect : effects)
+		for(int i = 0; i < effects.size(); i++)
 		{
-			effect.draw(g2d, mousePosition);
+			effects.get(i).draw(g2d, mousePosition);
 		}
 	}
 
@@ -47,6 +47,7 @@ public class EffectManager implements CommandListener
 	@Override
 	public void commandReceived(Command command)
 	{
+		System.out.println("Command Received");
 		if (command instanceof EffectCommand)
 		{
 			Effect effect = ((EffectCommand)command).getEffect();
