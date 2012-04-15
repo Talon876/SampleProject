@@ -9,6 +9,6 @@ package com.deflexicon.sample.command;
 public enum COMMANDS
 {
 	
-	HELP, BG
+	HELP, BG,ECHO
 	
 }
