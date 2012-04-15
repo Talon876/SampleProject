@@ -72,7 +72,6 @@ public class CommandTextField extends JTextField implements KeyListener, Command
 			//Down
 			System.out.println("Down");
 			String tmpCmd = history.getNextCommand();
-			System.out.println(tmpCmd);
 			if(tmpCmd != null)
 				this.setText(tmpCmd);
 		}
@@ -80,7 +79,6 @@ public class CommandTextField extends JTextField implements KeyListener, Command
 		{
 			//Up
 			String tmpCmd = history.getPrevCommand();
-			System.out.println(tmpCmd);
 			if(tmpCmd != null)
 				this.setText(tmpCmd);
 		}

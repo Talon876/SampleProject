@@ -44,12 +44,10 @@ public class CommandHistory
 		history.add(0, command);
 		currentItem = 0;
 		
-		System.out.println(history.toString()+ " " + currentItem);
 	}
 	
 	public String getPrevCommand()
 	{
-		System.out.println(history.toString() + " " + currentItem);
 		if(currentItem == history.size() - 1)
 			return history.get(currentItem);
 		else if(currentItem == 0)
@@ -60,7 +58,6 @@ public class CommandHistory
 		else if(currentItem + 1 <= history.size() - 1)
 		{
 			String tmp = history.get(currentItem);
-			System.out.println(tmp);
 			currentItem++;
 			return tmp;
 		}
@@ -70,13 +67,11 @@ public class CommandHistory
 	
 	public String getNextCommand()
 	{
-		System.out.println(history.toString()+ " " + currentItem);
 		if(currentItem == 0)
 			return "";
 		else if(currentItem - 1 >= 0)
 		{
 			String tmp = history.get(currentItem - 1);
-			System.out.println(tmp);
 			currentItem--;
 			return tmp;
 		}
