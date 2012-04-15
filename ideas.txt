@@ -7,3 +7,8 @@ I moved the COMMANDS enum to public level in the commands package so that the He
 
 Effect creation process:
 user inputs string -> string is parsed in to command -> command is sent to CommandListeners -> if it's an EffectCommand, its sent to CommandToEffect -> Creates an Effect object representing the command -> put on the effect stack in the EffectManager
+
+
+<Steve>
+Sounds good to me, if we use a decorator on the Commands one with Data and one with Effects we should be able to achieve that.
+</Steve>
