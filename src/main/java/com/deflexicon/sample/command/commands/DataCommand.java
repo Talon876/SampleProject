@@ -1,4 +1,4 @@
-package com.deflexicon.sample.command;
+package com.deflexicon.sample.command.commands;
 
 /**
  * Any command which will only be outputting data to the console should implement this interface.

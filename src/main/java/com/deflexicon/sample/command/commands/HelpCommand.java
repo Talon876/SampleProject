@@ -5,7 +5,6 @@ package com.deflexicon.sample.command.commands;
 
 import com.deflexicon.sample.command.COMMANDS;
 import com.deflexicon.sample.command.Command;
-import com.deflexicon.sample.command.DataCommand;
 
 /**
  * @author Talon Daniels
