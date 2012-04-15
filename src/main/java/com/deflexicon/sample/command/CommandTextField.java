@@ -51,16 +51,19 @@ public class CommandTextField extends JTextField implements KeyListener, Command
 		{
 			//Enter
 			String command = this.getText();
-			parent.write(command,true);
+			Command cmd = null;
+			parent.writeLine(command,true);
 			this.setText("");
 			try
 			{
-				CommandParser.parseString(command);
+				cmd = CommandParser.parseString(command);
+				parent.write(cmd.doCommand());
 			}
 			catch(CommandParseException e)
 			{
-				parent.writeError("Command not found");
+				parent.writeLineError(e.getMessage());
 			}
+			
 		}
 		else if (kc == ke.VK_DOWN)
 		{

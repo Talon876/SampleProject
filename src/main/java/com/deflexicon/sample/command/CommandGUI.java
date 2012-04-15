@@ -46,7 +46,7 @@ public class CommandGUI extends JFrame implements CommandListener, OutputWriter
 
 		initGui();
 		this.pack();
-		this.write("This is the command line\nType 'help' for a list of commands");
+		this.writeLine("This is the command line\nType 'help' for a list of commands");
 		input.requestFocusInWindow();
 		
 		//Transfers focus to the input text field when the window gains focus
@@ -108,8 +108,11 @@ public class CommandGUI extends JFrame implements CommandListener, OutputWriter
 	 * @param text
 	 *            The text to output to the screen
 	 */
-	public void write(String text)
+	public void writeLine(String text)
 	{
+		if(text == null)
+			return;
+		
 		StyleContext sc = StyleContext.getDefaultStyleContext();
 	    AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY,
 	    StyleConstants.Foreground, output.getForeground());
@@ -132,8 +135,87 @@ public class CommandGUI extends JFrame implements CommandListener, OutputWriter
 	 * @param clr
 	 * 				Color of the text.
 	 */
+	public void writeLine(String text, Color clr)
+	{
+		if(text == null)
+			return;
+		Color curForeground = output.getForeground();
+		output.setForeground(clr);
+		this.writeLine(text);
+		output.setForeground(curForeground);
+	}
+	
+	/**
+	 * Adds a line to the output pane that has a \n> prepended
+	 * 
+	 * @author Steve Dighans
+	 * @param text
+	 *            The text to output to the screen
+	 * @param prepend
+	 *            Whether or not to prepend \n> onto the text given
+	 */
+	public void writeLine(String text, boolean prepend)
+	{
+		if(text == null)
+			return;
+		
+	    if (prepend)
+			text = "\n> " + text;
+	    this.writeLine(text);
+	}
+	
+	/**
+	 * Adds the error line to the output pane
+	 * 
+	 * @author Steve Dighans
+	 * @param text
+	 *            The error to output to the screen
+	 */
+	public void writeLineError(String error)
+	{
+		if(error == null)
+			return;
+		this.writeLine(error, errorColor);
+	}
+	
+	/**
+	 * Adds a line to the output pane of the CommandGUI
+	 * 
+	 * @author Talon Daniels
+	 * @param text
+	 *            The text to output to the screen
+	 */
+	public void write(String text)
+	{
+		if(text == null)
+			return;
+		
+		StyleContext sc = StyleContext.getDefaultStyleContext();
+	    AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY,
+	    StyleConstants.Foreground, output.getForeground());
+
+	    int len = output.getDocument().getLength();
+	    try {
+			output.getDocument().insertString(len, text, aset);
+		} catch (BadLocationException e) {
+			e.printStackTrace();
+		}
+
+	}
+	
+	/**
+	 * Adds a line to the output pane of the CommandGUI with a specific Color
+	 * 
+	 * @author Steve Dighans
+	 * @param text
+	 *            The text to output to the screen
+	 * @param clr
+	 * 				Color of the text.
+	 */
 	public void write(String text, Color clr)
 	{
+		if(text == null)
+			return;
 		Color curForeground = output.getForeground();
 		output.setForeground(clr);
 		this.write(text);
@@ -151,6 +233,9 @@ public class CommandGUI extends JFrame implements CommandListener, OutputWriter
 	 */
 	public void write(String text, boolean prepend)
 	{
+		if(text == null)
+			return;
+		
 	    if (prepend)
 			text = "\n> " + text;
 	    this.write(text);
@@ -165,6 +250,8 @@ public class CommandGUI extends JFrame implements CommandListener, OutputWriter
 	 */
 	public void writeError(String error)
 	{
+		if(error == null)
+			return;
 		this.write(error, errorColor);
 	}
 	

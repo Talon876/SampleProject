@@ -79,7 +79,14 @@ public abstract class Command
 
 	/**
 	 * Gets the help text for this command
-	 * @return
+	 * @return The help text
 	 */
 	public abstract String getHelpText();
+	
+	/**
+	 * Runs the command
+	 * @author Steve Dighans
+	 * @return the results of the command
+	 */
+	public abstract String doCommand();
 }

@@ -22,11 +22,7 @@ public class HelpCommand extends Command implements DataCommand
 	 */
 	public HelpCommand()
 	{
-		output = "Available Commands:\n";
-		for(COMMANDS cmd : COMMANDS.values())
-		{
-			output += cmd + "\n";
-		}
+		output = getAvailCommands();
 	}
 	
 	/**
@@ -36,10 +32,32 @@ public class HelpCommand extends Command implements DataCommand
 	 */
 	public HelpCommand(String stringArg) throws CommandParseException
 	{
-		Command cmd = CommandParser.parseString(stringArg);
+		super(stringArg);
+		output = getAvailCommands();
+		Command cmd = null;
+		
+		if(stringArg.equalsIgnoreCase("help"))
+			return; //if they want help with help well then return the default output
+		try
+		{
+			cmd = CommandParser.parseString(stringArg);
+		}
+		catch(CommandParseException e)
+		{
+			throw new CommandParseException("Command " + stringArg + " does not exist\n" + output); //Gives the standard output if the command is invalid
+		}
 		output = cmd.getHelpText();
 	}
 	
+	private String getAvailCommands()
+	{
+		String out = "Available Commands:\n";
+		for(COMMANDS cmd : COMMANDS.values())
+		{
+			out += cmd + "\n";
+		}
+		return out;
+	}
 	@Override
 	public String getResults()
 	{
@@ -52,4 +70,9 @@ public class HelpCommand extends Command implements DataCommand
 		return helpText;
 	}
 
+	@Override
+	public String doCommand() {
+		return getResults();
+		
+	}
 }

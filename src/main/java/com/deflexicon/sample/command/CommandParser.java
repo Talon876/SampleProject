@@ -3,6 +3,8 @@
  */
 package com.deflexicon.sample.command;
 
+import com.deflexicon.sample.command.commands.*;
+
 /**
  * @author Steve Dighans
  *
@@ -23,8 +25,31 @@ public class CommandParser {
 	 */
 	public static Command parseString(String input) throws CommandParseException
 	{
-		
-		throw new CommandParseException();
+		String[] splitInput = input.split(" ");
+		COMMANDS numCmd = null;
+		Command cmd = null;
+		try
+		{
+			numCmd = COMMANDS.valueOf(splitInput[0].toUpperCase());
+		}
+		catch(IllegalArgumentException e)
+		{
+			throw new CommandParseException("Command does not exist");
+		}
+		catch(NullPointerException e)
+		{
+			throw new CommandParseException("Input a command or 'help' to list commands");
+		}
+		switch(numCmd)
+		{
+			case HELP:
+				if(splitInput.length > 1 && splitInput[1].length() > 0)
+					cmd = new HelpCommand(splitInput[1]);
+				else
+					cmd = new HelpCommand();
+			break;
+		}
+		return cmd;
 	}
 
 }

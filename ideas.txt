@@ -11,4 +11,7 @@ user inputs string -> string is parsed in to command -> command is sent to Comma
 
 <Steve>
 Sounds good to me, if we use a decorator on the Commands one with Data and one with Effects we should be able to achieve that.
+
+I added a doCommand function to Command so that you can call the start of the command whether its one or the other type. 
+When you implement a specific type of command you can add it's method calls to doCommand in the concrete class.
 </Steve>

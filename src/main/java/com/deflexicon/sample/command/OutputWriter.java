@@ -16,4 +16,9 @@ public interface OutputWriter
 	public void write(String text, boolean prepend);
 	public void writeError(String error);
 	public void write(String text, Color clr);
+	
+	public void writeLine(String text);
+	public void writeLine(String text, boolean prepend);
+	public void writeLineError(String error);
+	public void writeLine(String text, Color clr);
 }
