@@ -43,16 +43,19 @@ public class CommandParser {
 		switch(numCmd)
 		{
 			case HELP:
-				if(splitInput.length > 1 && splitInput[1].length() > 0)
+				if(splitInput.length > 1 && splitInput[1].length() > 0)//with args
 					cmd = new HelpCommand(splitInput[1]);
 				else
-					cmd = new HelpCommand();
+					cmd = new HelpCommand();//without
 				break;
 			case BG:
 				cmd = new BGCommand();
 				break;
 			case ECHO:
-				cmd = new EchoCommand(input.substring(splitInput[0].length() + 1));
+				if(!input.equals(splitInput[0]))
+					cmd = new EchoCommand(input.substring(splitInput[0].length() + 1)); //incase they type echo without any arguments
+				else
+					throw new CommandParseException("ECHO is ON");
 				break;
 		}
 		return cmd;
