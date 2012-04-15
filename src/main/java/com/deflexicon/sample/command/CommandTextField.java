@@ -20,10 +20,12 @@ public class CommandTextField extends JTextField implements KeyListener, Command
 
 	private OutputWriter parent;
 	private ArrayList<CommandListener> listeners;
+	private CommandHistory history;
 	
 	public CommandTextField(OutputWriter parentComponent)
 	{
 		super();
+		history = new CommandHistory();
 		listeners = new ArrayList<CommandListener>();
 		parent = parentComponent;
 		this.setBackground(Color.BLACK);
@@ -46,8 +48,8 @@ public class CommandTextField extends JTextField implements KeyListener, Command
 	{
 		//TODO: Escape hide window
 		int kc = ke.getKeyCode();
-		
-		if(kc == ke.VK_ENTER)
+		System.out.println(ke.getKeyCode());
+		if(kc == KeyEvent.VK_ENTER)
 		{
 			//Enter
 			String command = this.getText();
@@ -63,15 +65,24 @@ public class CommandTextField extends JTextField implements KeyListener, Command
 			{
 				parent.writeLineError(e.getMessage());
 			}
-			
+			history.addCommand(command);
 		}
-		else if (kc == ke.VK_DOWN)
+		else if (kc == KeyEvent.VK_DOWN)
 		{
 			//Down
+			System.out.println("Down");
+			String tmpCmd = history.getNextCommand();
+			System.out.println(tmpCmd);
+			if(tmpCmd != null)
+				this.setText(tmpCmd);
 		}
-		else if (kc == ke.VK_UP)
+		else if (kc == KeyEvent.VK_UP)
 		{
 			//Up
+			String tmpCmd = history.getPrevCommand();
+			System.out.println(tmpCmd);
+			if(tmpCmd != null)
+				this.setText(tmpCmd);
 		}
 	
 	}
