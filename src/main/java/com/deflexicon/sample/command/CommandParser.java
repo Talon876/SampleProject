@@ -51,6 +51,9 @@ public class CommandParser {
 			case BG:
 				cmd = new BGCommand();
 				break;
+			case ECHO:
+				cmd = new EchoCommand(input.substring(splitInput[0].length() + 1));
+				break;
 		}
 		return cmd;
 	}
