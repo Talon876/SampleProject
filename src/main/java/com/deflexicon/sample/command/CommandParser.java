@@ -23,6 +23,7 @@ public class CommandParser {
 	 */
 	public static Command parseString(String input) throws CommandParseException
 	{
+		
 		throw new CommandParseException();
 	}
 
