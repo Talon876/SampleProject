@@ -57,11 +57,7 @@ public class CommandTextField extends JTextField implements KeyListener, Command
 			try
 			{
 				cmd = CommandParser.parseString(command);
-				String results = cmd.doCommand();
-				if(results != null && results.length() == 0)//If it comes back with a null string do not append new line
-					parent.write(results);
-				else
-					parent.writeLine(results);
+				commandReceived(cmd);
 			}
 			catch(CommandParseException e)
 			{

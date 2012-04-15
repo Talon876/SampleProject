@@ -284,6 +284,10 @@ public class CommandGUI extends JFrame implements CommandListener, OutputWriter
 		{
 			listener.commandReceived(command);
 		}
-		
+		String results = command.doCommand();
+		if(results != null && results.length() == 0)//If it comes back with a null string do not append new line
+			write(results);
+		else
+			writeLine(results);
 	}
 }
