@@ -47,7 +47,10 @@ public class CommandParser {
 					cmd = new HelpCommand(splitInput[1]);
 				else
 					cmd = new HelpCommand();
-			break;
+				break;
+			case BG:
+				cmd = new BGCommand();
+				break;
 		}
 		return cmd;
 	}
