@@ -1,6 +1,7 @@
 package com.deflexicon.sample.command;
 
 import java.awt.*;
+import java.awt.event.*;
 import java.util.ArrayList;
 
 import javax.swing.*;
@@ -48,6 +49,24 @@ public class CommandGUI extends JFrame implements CommandListener, OutputWriter
 		this.write("This is the command line\nType 'help' for a list of commands");
 		input.requestFocusInWindow();
 		
+		//Transfers focus to the input text field when the window gains focus
+		this.addWindowListener(new WindowAdapter(){public void windowGainedFocus(WindowEvent e){input.requestFocusInWindow();}} );
+		
+		//Hides the window when escape is pressed
+		/*KeyStroke escapeKeyStroke = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, java.awt.event.InputEvent.SHIFT_DOWN_MASK, false);
+		Action escapeAction = new AbstractAction()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				toggleVisibility();
+			}
+		};
+
+		this.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(escapeKeyStroke, "HIDE");
+		this.getRootPane().getActionMap().put("HIDE", escapeAction);
+		
+		//TODO: Find out why the main application window is responding to the ESCAPE from this window
+		*/
 	}
 
 	private void initGui()
