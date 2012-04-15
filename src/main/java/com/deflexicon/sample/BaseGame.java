@@ -33,13 +33,15 @@ public class BaseGame
 			}
 		};
 		threadForInitGame.start();
-
+		
 	}
 
 	private void initialize()
 	{
 		System.out.println("game init");
 		effectManager = new EffectManager();
+		cmdGui.addCommandListener(effectManager);
+		
 		effectManager.addEffect(new CircleMeshEffect(50));
 	}
 

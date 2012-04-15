@@ -6,10 +6,12 @@ import java.util.Stack;
 
 import com.deflexicon.sample.command.Command;
 import com.deflexicon.sample.command.CommandListener;
+import com.deflexicon.sample.command.commands.DataCommand;
+import com.deflexicon.sample.command.commands.EffectCommand;
 
 public class EffectManager implements CommandListener
 {
-	Stack<Effect> effects;
+	private Stack<Effect> effects;
 
 	public EffectManager()
 	{
@@ -45,6 +47,14 @@ public class EffectManager implements CommandListener
 	@Override
 	public void commandReceived(Command command)
 	{
-
+		if (command instanceof EffectCommand)
+		{
+			Effect effect = ((EffectCommand)command).getEffect();
+			effects.push(effect);
+		}
+		else if(command instanceof DataCommand)
+		{
+			
+		}
 	}
 }

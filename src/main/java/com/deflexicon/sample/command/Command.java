@@ -13,8 +13,8 @@ import java.util.ArrayList;
  */
 public abstract class Command
 {
-	private String stringArg = "";
-	ArrayList<Integer> intArgs = new ArrayList<Integer>();
+	protected String stringArg = "";
+	protected ArrayList<Integer> intArgs = new ArrayList<Integer>();
 
 	/**
 	 * Creates a Command object
