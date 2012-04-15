@@ -36,7 +36,7 @@ public class HelpCommand extends Command implements DataCommand
 		output = getAvailCommands();
 		Command cmd = null;
 		
-		if(stringArg.equalsIgnoreCase("help"))
+		if(stringArg.equalsIgnoreCase(COMMANDS.HELP.toString()))
 			return; //if they want help with help well then return the default output
 		try
 		{
@@ -54,7 +54,7 @@ public class HelpCommand extends Command implements DataCommand
 		String out = "Available Commands:\n";
 		for(COMMANDS cmd : COMMANDS.values())
 		{
-			out += cmd + "\n";
+			out += cmd.toString().toLowerCase() + "\n";
 		}
 		return out;
 	}
