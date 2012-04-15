@@ -229,6 +229,7 @@ public class Framework extends Canvas
 		case OPTIONS:
 			// ...
 			break;
+		case STARTING:
 		case GAME_CONTENT_LOADING:
 			g2d.setColor(Color.white);
 			g2d.drawString("Game is LOADING...", frameWidth / 2 - 50, frameHeight / 2);

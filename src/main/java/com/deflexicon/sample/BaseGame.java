@@ -20,19 +20,11 @@ public class BaseGame
 		Framework.gameState = Framework.GameState.GAME_CONTENT_LOADING;
 		System.out.println("State: " + Framework.gameState.toString());
 
-		Thread threadForInitGame = new Thread()
-		{
-			@Override
-			public void run()
-			{
-				initialize();
-				loadContent();
+		initialize();
+		loadContent();
 
-				Framework.gameState = Framework.GameState.PLAYING;
-				System.out.println("State: " + Framework.gameState.toString());
-			}
-		};
-		threadForInitGame.start();
+		Framework.gameState = Framework.GameState.PLAYING;
+		System.out.println("State: " + Framework.gameState.toString());
 		
 	}
 
