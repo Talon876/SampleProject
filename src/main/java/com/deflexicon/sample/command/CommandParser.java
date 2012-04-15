@@ -3,7 +3,11 @@
  */
 package com.deflexicon.sample.command;
 
-import com.deflexicon.sample.command.commands.*;
+import java.util.ArrayList;
+
+import com.deflexicon.sample.command.commands.BGCommand;
+import com.deflexicon.sample.command.commands.EchoCommand;
+import com.deflexicon.sample.command.commands.HelpCommand;
 
 /**
  * @author Steve Dighans
@@ -49,7 +53,8 @@ public class CommandParser {
 					cmd = new HelpCommand();//without
 				break;
 			case BG:
-				cmd = new BGCommand();
+				cmd = parseBGCommand(splitInput);
+				
 				break;
 			case ECHO:
 				if(!input.equals(splitInput[0]))
@@ -61,4 +66,46 @@ public class CommandParser {
 		return cmd;
 	}
 
+	private static Command parseBGCommand(String[] splitInput) throws CommandParseException
+	{
+		ArrayList<Integer> args = new ArrayList<Integer>();
+		if(splitInput.length > 1)
+		{
+			for(int i = 1; i < splitInput.length; i++)
+			{
+				try
+				{
+					int arg = Integer.parseInt(splitInput[i]);
+					if(arg < 0 || arg > 255)
+					{
+						throw new CommandParseException("Invalid argument. Arguments must be an integer between 0 and 255");
+					}
+					else
+					{
+						args.add(arg);
+					}
+				}
+				catch(Exception ex)
+				{
+					throw new CommandParseException("Invalid argument. Arguments must be an integer between 0 and 255");
+				}
+			}
+		}
+		else
+		{
+			return new BGCommand(0,0,0); //default to black
+		}
+		
+		switch(args.size())
+		{
+			case 1:
+				return new BGCommand(args.get(0), 0, 0);
+			case 2:
+				return new BGCommand(args.get(0), args.get(1), 0);
+			case 3:
+				return new BGCommand(args.get(0), args.get(1), args.get(2));
+			default:
+				return new BGCommand(0,0,0);
+		}
+	}
 }

@@ -1,11 +1,29 @@
 package com.deflexicon.sample.command.commands;
 
+import java.util.Arrays;
+
 import com.deflexicon.sample.command.Command;
 import com.deflexicon.sample.visual.effects.BGEffect;
 import com.deflexicon.sample.visual.effects.Effect;
 
 public class BGCommand extends Command implements EffectCommand
 {
+	/**
+	 * Creates a BGCommand with a default Black background
+	 */
+	public BGCommand()
+	{
+		super(0,0,0);
+	}
+	
+	/**
+	 * Creates a BGCommand object
+	 * @param intArgs Any ints missing will be treated as 0
+	 */
+	public BGCommand(int... intArgs)
+	{
+		super(intArgs);
+	}
 
 	@Override
 	public String getHelpText()
@@ -16,8 +34,7 @@ public class BGCommand extends Command implements EffectCommand
 	@Override
 	public String doCommand()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return "Added BG effect with args " + Arrays.toString(intArgs.toArray());
 	}
 
 	@Override
