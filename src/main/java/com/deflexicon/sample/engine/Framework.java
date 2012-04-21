@@ -83,7 +83,7 @@ public class Framework extends Canvas
 			@Override
 			public void run()
 			{
-				GameLoop();
+				gameLoop();
 			}
 		};
 		gameThread.start();
@@ -94,7 +94,7 @@ public class Framework extends Canvas
 	 * and objects for this class, variables and objects for the actual game can
 	 * be set in Game.java.
 	 */
-	private void Initialize()
+	private void initialize()
 	{
 
 	}
@@ -103,7 +103,7 @@ public class Framework extends Canvas
 	 * Load files - images, sounds, ... This method is intended to load files
 	 * for this class, files for the actual game can be loaded in Game.java.
 	 */
-	private void LoadContent()
+	private void loadContent()
 	{
 
 	}
@@ -112,7 +112,7 @@ public class Framework extends Canvas
 	 * In specific intervals of time (GAME_UPDATE_PERIOD) the game/logic is
 	 * updated and then the game is drawn on the screen.
 	 */
-	private void GameLoop()
+	private void gameLoop()
 	{
 		// This two variables are used in VISUALIZING state of the game. We used
 		// them to wait some time so that we get correct frame/window
@@ -150,9 +150,9 @@ public class Framework extends Canvas
 				break;
 			case STARTING:
 				// Sets variables and objects.
-				Initialize();
+				initialize();
 				// Load files - images, sounds, ...
-				LoadContent();
+				loadContent();
 
 				// When all things that are called above finished, we change
 				// game status to main menu.

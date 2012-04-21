@@ -37,7 +37,9 @@ public class HelpCommand extends Command implements DataCommand
 		Command cmd = null;
 		
 		if(stringArg.equalsIgnoreCase(COMMANDS.HELP.toString()))
+		{
 			return; //if they want help with help well then return the default output
+		}
 		try
 		{
 			cmd = CommandParser.parseString(stringArg);

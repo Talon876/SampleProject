@@ -18,19 +18,16 @@ public class BaseGame
 	public BaseGame()
 	{
 		Framework.gameState = Framework.GameState.GAME_CONTENT_LOADING;
-		System.out.println("State: " + Framework.gameState.toString());
 
 		initialize();
 		loadContent();
 
 		Framework.gameState = Framework.GameState.PLAYING;
-		System.out.println("State: " + Framework.gameState.toString());
 		
 	}
 
 	private void initialize()
 	{
-		System.out.println("game init");
 		effectManager = new EffectManager();
 		cmdGui.addCommandListener(effectManager);
 		
@@ -39,12 +36,10 @@ public class BaseGame
 
 	private void loadContent()
 	{
-		System.out.println("load content");
 	}
 
 	public void restartGame()
 	{
-		System.out.println("restart game");
 	}
 
 	public void updateGame(long gameTime, Point mousePosition)

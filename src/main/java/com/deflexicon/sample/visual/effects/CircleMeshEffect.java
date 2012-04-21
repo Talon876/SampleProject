@@ -12,8 +12,8 @@ import com.deflexicon.sample.tools.Vector2;
 
 public class CircleMeshEffect implements Effect
 {
-	int numCircles = 25;
-	ArrayList<Circle> circles = new ArrayList<Circle>();
+	private int numCircles = 25;
+	private ArrayList<Circle> circles = new ArrayList<Circle>();
 
 	public CircleMeshEffect(int numCircles)
 	{

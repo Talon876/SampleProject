@@ -9,11 +9,11 @@ import com.deflexicon.sample.tools.Vector2;
 
 public class Circle
 {
-	Point position = new Point();
-	int radius = 1;
-	Vector2 velocity = new Vector2();
-	int speed = 2;
-	ValueInterpolator radiusChanger = new ValueInterpolator(100, 250);
+	private Point position = new Point();
+	private int radius = 1;
+	private Vector2 velocity = new Vector2();
+	private int speed = 2;
+	private ValueInterpolator radiusChanger = new ValueInterpolator(100, 250);
 
 	public Circle()
 	{
@@ -39,7 +39,9 @@ public class Circle
 	public void update()
 	{
 		if (velocity.length() != 0)
+		{
 			velocity.normalize();
+		}
 
 		position.x += velocity.x * speed;
 		position.y += velocity.y * speed;
