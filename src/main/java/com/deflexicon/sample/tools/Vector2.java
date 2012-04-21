@@ -2,7 +2,7 @@ package com.deflexicon.sample.tools;
 
 public class Vector2
 {
-	public static Vector2 ZERO = new Vector2(0, 0);
+	public static final Vector2 ZERO = new Vector2(0, 0);
 	public double x = 0.0;
 	public double y = 0.0;
 

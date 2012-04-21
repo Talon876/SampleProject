@@ -15,6 +15,9 @@ public class Circle
 	private int speed = 2;
 	private ValueInterpolator radiusChanger = new ValueInterpolator(100, 250);
 
+	/**
+	 * Creates a Circle
+	 */
 	public Circle()
 	{
 		position = new Point(0, 0);
@@ -22,6 +25,10 @@ public class Circle
 		velocity = new Vector2(0, 0);
 	}
 
+	/**
+	 * Creates a Circle at a given position
+	 * @param position The initial position of the circle
+	 */
 	public Circle(Point position)
 	{
 		this.position = position;
@@ -29,6 +36,11 @@ public class Circle
 		velocity = new Vector2(0, 0);
 	}
 
+	/**
+	 * Creates a Circle at a given position with a given velocity
+	 * @param position The initial position of the circle
+	 * @param velocity The initial velocity of the circle
+	 */
 	public Circle(Point position, Vector2 velocity)
 	{
 		this.position = position;
@@ -36,6 +48,11 @@ public class Circle
 		this.velocity = velocity;
 	}
 
+	/**
+	 * Updates the circle
+	 * Position is updated according to velocity
+	 * If the circle attempts to leave the screen, it bounces back in to view
+	 */
 	public void update()
 	{
 		if (velocity.length() != 0)
@@ -72,36 +89,64 @@ public class Circle
 		radius = radiusChanger.getValue();
 	}
 
+	/**
+	 * Draws the circle
+	 * @param g2d The graphics2D object to do the drawing
+	 */
 	public void draw(Graphics2D g2d)
 	{
 		g2d.drawOval(position.x - radius, position.y - radius, radius * 2, radius * 2);
 	}
 
+	/**
+	 * 
+	 * @return the current velocity of the circle
+	 */
 	public Vector2 getVelocity()
 	{
 		return velocity;
 	}
 
+	/**
+	 * Sets the velocity of the circle
+	 * @param velocity The new velocity
+	 */
 	public void setVelocity(Vector2 velocity)
 	{
 		this.velocity = velocity.normalize();
 	}
 
+	/**
+	 * 
+	 * @return the current speed of the circle
+	 */
 	public int getSpeed()
 	{
 		return speed;
 	}
 
+	/**
+	 * Sets the speed of the circle
+	 * @param speed The new speed
+	 */
 	public void setSpeed(int speed)
 	{
 		this.speed = speed;
 	}
 
+	/**
+	 * 
+	 * @return the current position of the circle
+	 */
 	public Point getPosition()
 	{
 		return position;
 	}
 
+	/**
+	 * 
+	 * @return the radius of the circle
+	 */
 	public int getRadius()
 	{
 		return radius;

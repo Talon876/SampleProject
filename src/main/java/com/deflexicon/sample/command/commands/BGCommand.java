@@ -40,8 +40,7 @@ public class BGCommand extends Command implements EffectCommand
 	@Override
 	public Effect getEffect()
 	{
-		BGEffect effect = new BGEffect(intArgs.get(0), intArgs.get(1), intArgs.get(2));
-		return effect;
+		return new BGEffect(intArgs.get(0), intArgs.get(1), intArgs.get(2));
 	}
 
 }

@@ -53,9 +53,5 @@ public class EffectManager implements CommandListener
 			Effect effect = ((EffectCommand)command).getEffect();
 			effects.push(effect);
 		}
-		else if(command instanceof DataCommand)
-		{
-			
-		}
 	}
 }

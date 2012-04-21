@@ -7,5 +7,5 @@ package com.deflexicon.sample.command.commands;
  */
 public interface DataCommand
 {
-	public String getResults();
+	String getResults();
 }

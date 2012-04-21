@@ -34,8 +34,7 @@ public class CMCommand extends Command implements EffectCommand
 	public Effect getEffect()
 	{
 		System.out.println("Returning CircleMeshEffect object with " + intArgs.get(0) + " circles");
-		CircleMeshEffect effect = new CircleMeshEffect(intArgs.get(0));
-		return effect;
+		return new CircleMeshEffect(intArgs.get(0));
 	}
 
 }

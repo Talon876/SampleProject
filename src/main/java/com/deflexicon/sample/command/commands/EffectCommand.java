@@ -9,5 +9,5 @@ import com.deflexicon.sample.visual.effects.Effect;
  */
 public interface EffectCommand
 {
-	public Effect getEffect();
+	Effect getEffect();
 }

@@ -12,9 +12,11 @@ import com.deflexicon.sample.visual.effects.EffectManager;
 
 public class BaseGame
 {
-	EffectManager effectManager;
-	CommandGUI cmdGui = CommandGUI.getInstance();
-
+	private EffectManager effectManager;
+	private CommandGUI cmdGui = CommandGUI.getInstance();
+	
+	private int xOffset = 4;
+	private int yOffset = 14;
 	public BaseGame()
 	{
 		Framework.gameState = Framework.GameState.GAME_CONTENT_LOADING;
@@ -50,7 +52,7 @@ public class BaseGame
 	public void draw(Graphics2D g2d, Point mousePosition)
 	{
 		g2d.setColor(Color.WHITE);
-		g2d.drawString("Press 'h' to toggle the command window.", 4, 14);
+		g2d.drawString("Press 'h' to toggle the command window.", xOffset, yOffset);
 		effectManager.draw(g2d, mousePosition);
 	}
 
