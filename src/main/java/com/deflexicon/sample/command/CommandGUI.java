@@ -5,8 +5,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.*;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.swing.*;
 import javax.swing.text.*;
@@ -131,7 +129,7 @@ public class CommandGUI extends JFrame implements CommandListener, OutputWriter
 	    try {
 			output.getDocument().insertString(len, text + "\n", aset);
 		} catch (BadLocationException e) {
-			Logger.getGlobal().log(Level.WARNING, e.getStackTrace().toString());
+			
 		}
 
 	}
@@ -217,7 +215,7 @@ public class CommandGUI extends JFrame implements CommandListener, OutputWriter
 	    try {
 			output.getDocument().insertString(len, text, aset);
 		} catch (BadLocationException e) {
-			Logger.getGlobal().log(Level.WARNING, e.getStackTrace().toString());
+			
 		}
 
 	}
