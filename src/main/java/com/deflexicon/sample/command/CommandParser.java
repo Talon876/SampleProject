@@ -15,8 +15,7 @@ import com.deflexicon.sample.command.commands.HelpCommand;
  *
  */
 public class CommandParser {
-	
-	// private static enum COMMANDS {HELP,}; //replaced this enum with COMMANDS in the command package so the HelpCommand can also loop through them.
+	private CommandParser(){}
 	
 	/**
 	 * Parses the input text to check if it is a valid command returns an instance of that command

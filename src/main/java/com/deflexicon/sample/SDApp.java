@@ -4,7 +4,7 @@ import java.util.*;
 
 public class SDApp
 {
-	private static int[] TESTINTS = {1337,9001,42};
+	private static final int[] TESTINTS = {1337,9001,42};
 	public void doStuff()
 	{
 		ex6Part1(TESTINTS[0],TESTINTS[1],TESTINTS[2]);

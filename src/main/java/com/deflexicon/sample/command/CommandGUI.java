@@ -1,8 +1,12 @@
 package com.deflexicon.sample.command;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.*;
-import java.util.ArrayList;
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.*;
 import javax.swing.text.*;
@@ -15,23 +19,24 @@ public class CommandGUI extends JFrame implements CommandListener, OutputWriter
 {
 
 	private static final long serialVersionUID = 207386308260902684L;
-	private static CommandGUI _instance = null;
+	private static final Dimension DEFAULTSIZE = new Dimension(640,320);
+	private static CommandGUI instance = null;
 
 	private JTextPane output;
 
 	private CommandTextField input;
 
-	private ArrayList<CommandListener> listeners;
+	private List<CommandListener> listeners;
 	
 	private Color errorColor;
 	
 	public static synchronized CommandGUI getInstance()
 	{
-		if (_instance == null)
+		if (instance == null)
 		{
-			_instance = new CommandGUI();
+			instance = new CommandGUI();
 		}
-		return _instance;
+		return instance;
 	}
 
 	private CommandGUI()
@@ -40,7 +45,7 @@ public class CommandGUI extends JFrame implements CommandListener, OutputWriter
 		listeners = new ArrayList<CommandListener>();
 		
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		this.setPreferredSize(new Dimension(640, 320));
+		this.setPreferredSize(DEFAULTSIZE);
 		this.setLocation(0, 0);
 		this.setTitle("Command Line");
 
@@ -96,9 +101,13 @@ public class CommandGUI extends JFrame implements CommandListener, OutputWriter
 	public void toggleVisibility()
 	{
 		if (this.isVisible())
+		{
 			this.setVisible(false);
+		}
 		else
+		{
 			this.setVisible(true);
+		}
 	}
 
 	/**
@@ -111,8 +120,9 @@ public class CommandGUI extends JFrame implements CommandListener, OutputWriter
 	public void writeLine(String text)
 	{
 		if(text == null)
+		{
 			return;
-		
+		}
 		StyleContext sc = StyleContext.getDefaultStyleContext();
 	    AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY,
 	    StyleConstants.Foreground, output.getForeground());
@@ -121,7 +131,7 @@ public class CommandGUI extends JFrame implements CommandListener, OutputWriter
 	    try {
 			output.getDocument().insertString(len, text + "\n", aset);
 		} catch (BadLocationException e) {
-			e.printStackTrace();
+			Logger.getGlobal().log(Level.WARNING, e.getStackTrace().toString());
 		}
 
 	}
@@ -138,7 +148,9 @@ public class CommandGUI extends JFrame implements CommandListener, OutputWriter
 	public void writeLine(String text, Color clr)
 	{
 		if(text == null)
+		{
 			return;
+		}
 		Color curForeground = output.getForeground();
 		output.setForeground(clr);
 		this.writeLine(text);
@@ -156,12 +168,16 @@ public class CommandGUI extends JFrame implements CommandListener, OutputWriter
 	 */
 	public void writeLine(String text, boolean prepend)
 	{
-		if(text == null)
+		String appendText = text;
+		if(appendText == null)
+		{
 			return;
-		
+		}
 	    if (prepend)
-			text = "\n> " + text;
-	    this.writeLine(text);
+	    {
+			appendText = "\n> " + appendText;
+	    }
+	    this.writeLine(appendText);
 	}
 	
 	/**
@@ -174,7 +190,9 @@ public class CommandGUI extends JFrame implements CommandListener, OutputWriter
 	public void writeLineError(String error)
 	{
 		if(error == null)
+		{
 			return;
+		}
 		this.writeLine(error, errorColor);
 	}
 	
@@ -188,8 +206,9 @@ public class CommandGUI extends JFrame implements CommandListener, OutputWriter
 	public void write(String text)
 	{
 		if(text == null)
+		{
 			return;
-		
+		}
 		StyleContext sc = StyleContext.getDefaultStyleContext();
 	    AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY,
 	    StyleConstants.Foreground, output.getForeground());
@@ -198,7 +217,7 @@ public class CommandGUI extends JFrame implements CommandListener, OutputWriter
 	    try {
 			output.getDocument().insertString(len, text, aset);
 		} catch (BadLocationException e) {
-			e.printStackTrace();
+			Logger.getGlobal().log(Level.WARNING, e.getStackTrace().toString());
 		}
 
 	}
@@ -215,7 +234,9 @@ public class CommandGUI extends JFrame implements CommandListener, OutputWriter
 	public void write(String text, Color clr)
 	{
 		if(text == null)
+		{
 			return;
+		}
 		Color curForeground = output.getForeground();
 		output.setForeground(clr);
 		this.write(text);
@@ -233,12 +254,16 @@ public class CommandGUI extends JFrame implements CommandListener, OutputWriter
 	 */
 	public void write(String text, boolean prepend)
 	{
-		if(text == null)
+		String appendText = text;
+		if(appendText == null)
+		{
 			return;
-		
+		}
 	    if (prepend)
-			text = "\n> " + text;
-	    this.write(text);
+	    {
+			appendText = "\n> " + appendText;
+	    }
+	    this.write(appendText);
 	}
 	
 	/**
@@ -251,7 +276,9 @@ public class CommandGUI extends JFrame implements CommandListener, OutputWriter
 	public void writeError(String error)
 	{
 		if(error == null)
+		{
 			return;
+		}
 		this.write(error, errorColor);
 	}
 	
@@ -286,8 +313,12 @@ public class CommandGUI extends JFrame implements CommandListener, OutputWriter
 		}
 		String results = command.doCommand();
 		if(results != null && results.length() == 0)//If it comes back with a null string do not append new line
+		{
 			write(results);
+		}
 		else
+		{
 			writeLine(results);
+		}
 	}
 }
